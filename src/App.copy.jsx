@@ -5,9 +5,9 @@ import "handsontable/dist/handsontable.full.css";
 import "@/assets/main.css";
 
 @Component
-export default class App extends Vue{
-    handsontable: any = null;
-    setting: any = {
+export default class AppCopy extends Vue{
+    handsontable = null;
+    setting = {
         // 语言
         language: "zh-CN", // en-US, zh-TW
         // 自动生成1000行1000列数据
@@ -193,7 +193,7 @@ export default class App extends Vue{
     });
     */
 
-    $refs: any
+
 
     mounted(){
         this.handsontable = new Handsontable(this.$refs.excelTable, this.setting);

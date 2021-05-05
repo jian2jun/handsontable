@@ -34,7 +34,41 @@ export default {
                     {id: 11, name: {first: 'Aaron', last: 'Kinley'}, ip: '0.0.0.1', email: 'Aaron.Kinley@ex.com', price: 91},
                     {id: null, name: {first: null, last: null}, ip: null, email: null, price: null}
                 ],
-                beforeValidate(){
+                // 合并单元格
+                /*mergeCells: [
+                    {row: 1, col: 1, rowspan: 3, colspan: 3},
+                    {row: 3, col: 4, rowspan: 2, colspan: 2}
+                ],*/
+                // 添加评论
+                /*cell: [
+                    {row: 0, col: 1, comment: {value: 'A read-only comment.', readOnly: true}},
+                    {row: 0, col: 3, comment: {value: 'You can edit this comment!'}}
+                ],*/
+                // 多行表头
+                nestedHeaders: [
+                    ['A', {label: 'B', colspan: 8}, 'C'],
+                    ['B', {label: 'E', colspan: 4}, {label: 'F', colspan: 4}, 'G'],
+                    ['H', {label: 'I', colspan: 2}, {label: 'J', colspan: 2}, {label: 'K', colspan: 2}, {label: 'L', colspan: 2}, 'M'],
+                    ['N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W']
+                ],
+                colHeaders: ['ID', 'First name', 'Last name', 'IP', 'E-mail', 'price'],
+                // 自定义渲染头部
+                /*colHeaders: function (col, a, b, c) {
+                    var txt;
+
+                    switch (col) {
+                        case 0:
+                            return '<b>Bold</b> and <em>Beautiful</em>';
+
+                        case 1:
+                            txt = "Some <input type='checkbox' class='checker' ";
+                            txt += 'checked="checked"';
+                            txt += "> checkbox";
+
+                            return txt;
+                    }
+                },*/
+                /*beforeValidate(){
                     console.log(333)
                 },
                 afterValidate(isValid){
@@ -64,8 +98,7 @@ export default {
                     if (source !== 'loadData') {
                         this.$refs.info.innerText = JSON.stringify(changes);
                     }
-                },
-                colHeaders: ['ID', 'First name', 'Last name', 'IP', 'E-mail', 'price'],
+                },*/
                 columns: [
                     {data: 'id', type: 'numeric'},
                     {data: 'name.first'},
@@ -109,6 +142,19 @@ export default {
     },
     mounted(){
         this.table = new Handsontable(this.$refs.table, this.setting);
+        setTimeout(() => {
+            const thead = this.$refs.table.querySelectorAll("thead")[1];
+            console.log(thead, 333);
+            const th1 = thead.querySelector("tr:nth-of-type(1) > th:nth-of-type(1)");
+            const th2 = thead.querySelector("tr:nth-of-type(2) > th:nth-of-type(1)");
+            th1.setAttribute("rowspan", "2");
+            th1.setAttribute("style", "height: 50px;");
+            console.log(th2.parentNode)
+            th2.parentNode.removeChild(th2);
+        }, 1000);
+
+
+
     },
     render(){
         return (

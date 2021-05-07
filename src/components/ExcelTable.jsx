@@ -1,37 +1,103 @@
 import Handsontable from "handsontable";
+import "./RewriteNestedHeaders.js";
 
 export default {
     name: "ExcelTable",
     props: {},
-    data(){
+    data() {
         return {};
     },
     computed: {
-        setting(){
+        setting() {
             const ipValidatorRegexp = /^(?:\b(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\b|null)$/;
             const emailValidator = function (value, callback) {
-                setTimeout(function(){
+                setTimeout(function () {
                     if (/.+@.+/.test(value)) {
                         callback(true);
-                    }
-                    else {
+                    } else {
                         callback(false);
                     }
                 }, 1000);
             };
             return {
                 data: [
-                    {id: 1, name: {first: 'Joe', last: 'Fabiano'}, ip: '0.0.0.1', email: 'Joe.Fabiano@ex.com', price: 25},
-                    {id: 2, name: {first: 'Fred', last: 'Wecler'}, ip: '0.0.0.1', email: 'Fred.Wecler@ex.com', price: 15},
-                    {id: 3, name: {first: 'Steve', last: 'Wilson'}, ip: '0.0.0.1', email: 'Steve.Wilson@ex.com', price: 24},
-                    {id: 4, name: {first: 'Maria', last: 'Fernandez'}, ip: '0.0.0.1', email: 'M.Fernandez@ex.com', price: 13},
-                    {id: 5, name: {first: 'Pierre', last: 'Barbault'}, ip: '0.0.0.1', email: 'Pierre.Barbault@ex.com', price: 89},
-                    {id: 6, name: {first: 'Nancy', last: 'Moore'}, ip: '0.0.0.1', email: 'Nancy.Moore@ex.com', price: 4},
-                    {id: 7, name: {first: 'Barbara', last: 'MacDonald'}, ip: '0.0.0.1', email: 'B.MacDonald@ex.com', price: 71},
-                    {id: 8, name: {first: 'Wilma', last: 'Williams'}, ip: '0.0.0.1', email: 'Wilma.Williams@ex.com', price: 30},
-                    {id: 9, name: {first: 'Sasha', last: 'Silver'}, ip: '0.0.0.1', email: 'Sasha.Silver@ex.com', price: 22},
-                    {id: 10, name: {first: 'Don', last: 'Pérignon'}, ip: '0.0.0.1', email: 'Don.Pérignon@ex.com', price: 76},
-                    {id: 11, name: {first: 'Aaron', last: 'Kinley'}, ip: '0.0.0.1', email: 'Aaron.Kinley@ex.com', price: 91},
+                    {
+                        id: 1,
+                        name: {first: 'Joe', last: 'Fabiano'},
+                        ip: '0.0.0.1',
+                        email: 'Joe.Fabiano@ex.com',
+                        price: 25
+                    },
+                    {
+                        id: 2,
+                        name: {first: 'Fred', last: 'Wecler'},
+                        ip: '0.0.0.1',
+                        email: 'Fred.Wecler@ex.com',
+                        price: 15
+                    },
+                    {
+                        id: 3,
+                        name: {first: 'Steve', last: 'Wilson'},
+                        ip: '0.0.0.1',
+                        email: 'Steve.Wilson@ex.com',
+                        price: 24
+                    },
+                    {
+                        id: 4,
+                        name: {first: 'Maria', last: 'Fernandez'},
+                        ip: '0.0.0.1',
+                        email: 'M.Fernandez@ex.com',
+                        price: 13
+                    },
+                    {
+                        id: 5,
+                        name: {first: 'Pierre', last: 'Barbault'},
+                        ip: '0.0.0.1',
+                        email: 'Pierre.Barbault@ex.com',
+                        price: 89
+                    },
+                    {
+                        id: 6,
+                        name: {first: 'Nancy', last: 'Moore'},
+                        ip: '0.0.0.1',
+                        email: 'Nancy.Moore@ex.com',
+                        price: 4
+                    },
+                    {
+                        id: 7,
+                        name: {first: 'Barbara', last: 'MacDonald'},
+                        ip: '0.0.0.1',
+                        email: 'B.MacDonald@ex.com',
+                        price: 71
+                    },
+                    {
+                        id: 8,
+                        name: {first: 'Wilma', last: 'Williams'},
+                        ip: '0.0.0.1',
+                        email: 'Wilma.Williams@ex.com',
+                        price: 30
+                    },
+                    {
+                        id: 9,
+                        name: {first: 'Sasha', last: 'Silver'},
+                        ip: '0.0.0.1',
+                        email: 'Sasha.Silver@ex.com',
+                        price: 22
+                    },
+                    {
+                        id: 10,
+                        name: {first: 'Don', last: 'Pérignon'},
+                        ip: '0.0.0.1',
+                        email: 'Don.Pérignon@ex.com',
+                        price: 76
+                    },
+                    {
+                        id: 11,
+                        name: {first: 'Aaron', last: 'Kinley'},
+                        ip: '0.0.0.1',
+                        email: 'Aaron.Kinley@ex.com',
+                        price: 91
+                    },
                     {id: null, name: {first: null, last: null}, ip: null, email: null, price: null}
                 ],
                 // 合并单元格
@@ -45,13 +111,17 @@ export default {
                     {row: 0, col: 3, comment: {value: 'You can edit this comment!'}}
                 ],*/
                 // 多行表头
-                nestedHeaders: [
-                    ['A', {label: 'B', colspan: 8}, 'C'],
-                    ['B', {label: 'E', colspan: 4}, {label: 'F', colspan: 4}, 'G'],
-                    ['H', {label: 'I', colspan: 2}, {label: 'J', colspan: 2}, {label: 'K', colspan: 2}, {label: 'L', colspan: 2}, 'M'],
+                nestedHeaders: false,
+                rewriteNestedHeaders: [
+                    [{label: 'A', rowspan: 2}, {label: 'B', colspan: 8}, 'C'],
+                    [{label: '', hidden: true}, {label: 'E', colspan: 4}, {label: 'F', colspan: 4}, 'G'],
+                    ['H', {label: 'I', colspan: 2}, {label: 'J', colspan: 2}, {label: 'K', colspan: 2}, {
+                        label: 'L',
+                        colspan: 2
+                    }, 'M'],
                     ['N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W']
                 ],
-                colHeaders: ['ID', 'First name', 'Last name', 'IP', 'E-mail', 'price'],
+                // colHeaders: ['ID', 'First name', 'Last name', 'IP', 'E-mail', 'price'],
                 // 自定义渲染头部
                 /*colHeaders: function (col, a, b, c) {
                     var txt;
@@ -68,6 +138,7 @@ export default {
                             return txt;
                     }
                 },*/
+                rowHeaders: true,
                 /*beforeValidate(){
                     console.log(333)
                 },
@@ -140,9 +211,9 @@ export default {
             };
         }
     },
-    mounted(){
+    mounted() {
         this.table = new Handsontable(this.$refs.table, this.setting);
-        setTimeout(() => {
+        /*setTimeout(() => {
             const thead = this.$refs.table.querySelectorAll("thead")[1];
             console.log(thead, 333);
             const th1 = thead.querySelector("tr:nth-of-type(1) > th:nth-of-type(1)");
@@ -151,16 +222,15 @@ export default {
             th1.setAttribute("style", "height: 50px;");
             console.log(th2.parentNode)
             th2.parentNode.removeChild(th2);
-        }, 1000);
-
+        }, 1000);*/
 
 
     },
-    render(){
+    render() {
         return (
             <div>
-                <div ref="table" />
-                <div ref="info" />
+                <div ref="table"/>
+                <div ref="info"/>
             </div>
         );
     }

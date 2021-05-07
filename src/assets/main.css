@@ -1,3 +1,7 @@
 #hot-display-license-info{
     display: none;
 }
+.handsontable thead th {
+    vertical-align: middle;
+    height: 25px !important;
+}

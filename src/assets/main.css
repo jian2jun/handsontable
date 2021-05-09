@@ -1,7 +1,13 @@
 #hot-display-license-info{
     display: none;
 }
-.handsontable thead th {
+.handsontable thead tr th {
     vertical-align: middle;
     height: 25px !important;
+}
+.handsontable thead th[rowspan]{
+    border-bottom-width: 0;
+}
+.innerBorderTop + .handsontable thead th[rowspan]{
+    border-bottom-width: 1px;
 }

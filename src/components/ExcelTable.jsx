@@ -113,13 +113,13 @@ export default {
                 // 多行表头
                 nestedHeaders: false,
                 rewriteNestedHeaders: [
-                    [{label: 'A', rowspan: 2}, {label: 'B', colspan: 8}, 'C'],
+                    [{label: 'A', rowspan: 4}, {label: 'B', colspan: 8}, 'C'],
                     [{label: '', hidden: true}, {label: 'E', colspan: 4}, {label: 'F', colspan: 4}, 'G'],
-                    ['H', {label: 'I', colspan: 2}, {label: 'J', colspan: 2}, {label: 'K', colspan: 2}, {
+                    [{label: '', hidden: true}, {label: 'I', colspan: 2}, {label: 'J', colspan: 2}, {label: 'K', colspan: 2}, {
                         label: 'L',
                         colspan: 2
                     }, 'M'],
-                    ['N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W']
+                    [{label: '', hidden: true}, 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W']
                 ],
                 // colHeaders: ['ID', 'First name', 'Last name', 'IP', 'E-mail', 'price'],
                 // 自定义渲染头部
@@ -139,6 +139,7 @@ export default {
                     }
                 },*/
                 rowHeaders: true,
+                height: 200,
                 /*beforeValidate(){
                     console.log(333)
                 },
